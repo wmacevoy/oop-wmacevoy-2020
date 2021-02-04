@@ -1,7 +1,11 @@
 
+# classes are "blueprints" for objects.
 class Moon:
 
-    # constructor
+    # constructor - used to initialize a new moon (instance of Moon)
+    #
+    #   make an instance, then the blueprint has to have a way to
+    #   refer to "itself".  In python, that is "self"
     def __init__(self,size : int,color : str, phase : int = 0) -> None:
 
         # properties...
@@ -16,12 +20,18 @@ class Moon:
         self._phase = (self._phase + 1) % 4
 
     @property
-    def phase(self):
+    def phase(self) -> int:
         return self._phase
 
     @property
-    def color(self):
+    def color(self) -> str:
         return self._color
+
+    @color.setter
+    def color(self,value : str) -> None:
+        if not value in ['grey','blue','white','silver']:
+            raise ValueError('invalid moon color')
+        self._color = value
 
     @property
     def size(self):
