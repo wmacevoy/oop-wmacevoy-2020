@@ -1,13 +1,24 @@
+class Satellite:
+    def __init__(self, distance : float, orbits : str) :
+        self._distance = distance
+        self._orbits = orbits
+
+
+    @property
+    def distance(self):
+        return self._distance
+
 
 # classes are "blueprints" for objects.
-class Moon:
+class Moon(Satellite):
 
     # constructor - used to initialize a new moon (instance of Moon)
     #
     #   make an instance, then the blueprint has to have a way to
     #   refer to "itself".  In python, that is "self"
-    def __init__(self,size : int,color : str, phase : int = 0) -> None:
-
+    def __init__(self,distance : float, orbits : str,
+           size : int,color : str, phase : int = 0) -> None:
+        Satellite.__init__(self, distance, orbits)
         # properties...
         self._size : int = size
         self._color : str = color
