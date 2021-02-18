@@ -1,3 +1,5 @@
+from typing import List
+
 class Satellite:
     def __init__(self, distance : float, orbits : str) :
         self._distance = distance
@@ -8,8 +10,24 @@ class Satellite:
     def distance(self):
         return self._distance
 
+    @property
+    def orbits(self):
+        return self._orbits
 
 # classes are "blueprints" for objects.
+
+# Moon is a derived class of Satellite
+# Satelliite is a base class of Moon
+
+#  "Moon is a Satellite" --- sounds right 
+#  "A crater is a Moon" --- sounds wrong
+#  "Moon has a (collection of) Crater" 
+
+# phobos is an instance of Moon (singular version of)
+  
+class Crater:
+    pass
+
 class Moon(Satellite):
 
     # constructor - used to initialize a new moon (instance of Moon)
@@ -23,6 +41,7 @@ class Moon(Satellite):
         self._size : int = size
         self._color : str = color
         self._phase : int = phase
+        self._craters : List[Crater] = []
 
     def isNewMoon(self) -> bool:
         return self._phase == 0
@@ -47,8 +66,3 @@ class Moon(Satellite):
     @property
     def size(self):
         return self._size
-
-
-
-    
-
