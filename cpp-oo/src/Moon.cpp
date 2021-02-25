@@ -3,7 +3,18 @@
 
 namespace moon {
 
-    Moon::Moon(int size, std::string color, int phase) {
+    Moon::Moon()
+      : Satellite(239000.0)
+      {
+          m_size = 1079.4;
+          m_color = "silver";
+          m_phase = 0;
+      }
+
+    Moon::Moon(double distance, std::string orbits,
+                int size, std::string color, int phase) 
+        : Satellite(distance,orbits)
+    {
         m_size = size;
         m_color = color;
         m_phase = phase;
