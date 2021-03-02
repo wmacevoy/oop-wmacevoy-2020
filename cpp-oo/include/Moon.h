@@ -2,21 +2,26 @@
 
 #include <string>
 
+#include "Satellite.h"
+
 namespace moon {
 
-    class Moon {
-        private: int m_size;
+    class Moon : public Satellite {
+        private: const int m_size;
         private: std::string m_color;
         private: int m_phase;
 
-        public: Moon(int size, std::string color, int phase = 0);
+        public: Moon();
 
-        public: bool isNewMoon();
+        public: Moon(double distance, const std::string &orbits, 
+                        int size, const std::string &color, int phase = 0);
+
+        public: bool isNewMoon() const;
         public: void cycle();
-        public: int phase();
-        public: std::string color();
+        public: int phase() const;
+        public: const std::string& color() const;
         public: void color(std::string value);
-        public: int size();
+        public: int size() const;
 
     };
 }
