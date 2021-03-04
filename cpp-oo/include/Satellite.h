@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <memory>
 
 
 namespace moon {
@@ -15,7 +16,10 @@ class Satellite {
     public: double distance() const;
     public: void distance(double value);
     public: const std::string& orbits() const;
+    public: virtual ~Satellite();
 };
+
+typedef std::shared_ptr < Satellite > SatellitePtr;
 
 
 }

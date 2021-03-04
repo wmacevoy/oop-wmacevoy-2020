@@ -32,6 +32,35 @@ TEST(Moon, DefaultConstructor) {
       ASSERT_EQ(moon.color(),color);
       ASSERT_EQ(moon.size(),size);
 }
+
+TEST(Moon, MoonAsSatellite) {
+      std::shared_ptr < Satellite > pSat (new Moon());
+
+      std::shared_ptr < Satellite > qSat (new Satellite(33.3));
+
+      ASSERT_EQ(pSat->orbits(), Satellite::DEFAULT_ORBITS);
+      ASSERT_EQ(qSat->orbits(), Satellite::DEFAULT_ORBITS);
+}
+
+TEST(Moon, MoonAsSatelliteBad1) {
+      Satellite *pSat=new Moon();
+      Satellite *qSat=new Satellite(33.3);
+
+      ASSERT_EQ(pSat->orbits(), Satellite::DEFAULT_ORBITS);
+      ASSERT_EQ(qSat->orbits(), Satellite::DEFAULT_ORBITS);
+}
+
+TEST(Moon, MoonAsSatelliteBad2) {
+      Satellite *pSat=new Moon();
+      Satellite *qSat=new Satellite(33.3);
+
+      ASSERT_EQ(pSat->orbits(), Satellite::DEFAULT_ORBITS);
+      ASSERT_EQ(qSat->orbits(), Satellite::DEFAULT_ORBITS);
+
+      delete pSat; // only cleans satelliteness!!!! 
+      delete qSat;
+}
+
 int main(int argc, char** argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

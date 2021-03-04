@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <memory>
 
 #include "Satellite.h"
 
@@ -16,6 +17,8 @@ namespace moon {
         public: Moon(double distance, const std::string &orbits, 
                         int size, const std::string &color, int phase = 0);
 
+        public: virtual ~Moon();
+
         public: bool isNewMoon() const;
         public: void cycle();
         public: int phase() const;
@@ -24,4 +27,6 @@ namespace moon {
         public: int size() const;
 
     };
+
+    typedef std::shared_ptr < Moon > MoonPtr;
 }
