@@ -16,6 +16,7 @@ class Satellite {
     public: double distance() const;
     public: void distance(double value);
     public: const std::string& orbits() const;
+    public: virtual void advance(double duration); 
     public: virtual ~Satellite();
 };
 

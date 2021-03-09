@@ -50,6 +50,19 @@ TEST(Moon, MoonAsSatelliteBad1) {
       ASSERT_EQ(qSat->orbits(), Satellite::DEFAULT_ORBITS);
 }
 
+TEST(Moon,phaseAndTime) {
+      Moon moon;
+      double eps=1e-9;
+      ASSERT_EQ(moon.phase(),0);
+      ASSERT_NEAR(moon.time(),Moon::MOON_ORBIT_TIME/8.0,eps);
+      double time0=moon.time();
+      moon.advance(Moon::MOON_ORBIT_TIME/2);
+      ASSERT_NEAR(moon.time(),5*Moon::MOON_ORBIT_TIME/8.0,eps);
+      ASSERT_EQ(moon.phase(),2);
+      moon.cycle();
+      ASSERT_NEAR(moon.time()-time0,0.75*Moon::MOON_ORBIT_TIME,eps);
+}
+
 TEST(Moon, MoonAsSatelliteBad2) {
       Satellite *pSat=new Moon();
       Satellite *qSat=new Satellite(33.3);

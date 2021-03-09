@@ -1,24 +1,22 @@
 #include "Moon.h"
 #include <stdexcept>
 #include <iostream>
+#include <math.h>
 
 namespace moon {
 
-    Moon::Moon()
-      : Satellite(239000.0), m_size(1079.4)
-      {
-          m_color = "silver";
-          m_phase = 0;
-          std::cout << "Moon@" << (void*) this << " constructed." << std::endl;
+    const double Moon::MOON_ORBIT_TIME=27.322;
 
+    Moon::Moon()
+      : Moon(239000.0, DEFAULT_ORBITS, 1079.4,"silver",0)
+      {
       }
 
     Moon::Moon(double distance, const std::string &orbits,
                 int size, const std::string &color, int phase) 
-        : Satellite(distance,orbits), m_size(size)
+        : Satellite(distance,orbits), m_size(size), m_color(color), m_phase(phase),
+        m_time((MOON_ORBIT_TIME/4.0)*(phase+0.5))
     {
-        m_color = color;
-        m_phase = phase;
           std::cout << "Moon@" << (void*) this << " constructed." << std::endl;
     }
 
@@ -30,7 +28,14 @@ namespace moon {
     }
     void Moon::cycle() {
         m_phase = (m_phase + 1) % 4;
+        m_time += MOON_ORBIT_TIME/4.0;
     }
+
+    void Moon::advance(double amount) {
+        m_time += amount;
+        m_phase = int(4*(m_time/MOON_ORBIT_TIME)) % 4;
+    }
+
     int Moon::phase() const {
         return m_phase;
     }
@@ -44,6 +49,8 @@ namespace moon {
         m_color = value;
     }
     
+    double Moon::time() const { return m_time; }
+
     int Moon::size() const {
         return m_size;
     }
