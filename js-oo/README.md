@@ -7,6 +7,7 @@ https://wmacevoy.github.io/oop-wmacevoy/
 This automatically publishes anything in the main branch in the docs subfolder
 of the github.com/wmacevoy/oop-wmacevoy repo
 
+WARNING: git published /docs NOT js-oo/docs, so I moved this project to /docs!
 ## Test
 
 ```bash
