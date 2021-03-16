@@ -1,10 +1,11 @@
-# Hello
+# JS-OOP Example
 
-Make a hello function that can return greeting messages.  The project structure is to have the functionality in the `hello` directory, and the corresponding tests in `hellotest`
+This is published on github via the url
 
-```
-*.js
-```
+https://wmacevoy.github.io/oop-wmacevoy/
+
+This automatically publishes anything in the main branch in the docs subfolder
+of the github.com/wmacevoy/oop-wmacevoy repo
 
 ## Test
 

@@ -1,12 +1,14 @@
 export class Moon {
-    constructor(size, color, phase) {
-        this._size = size
-        this._color = color
-        this._phase = phase
+    constructor(div, id, config) {
+	   this._div = div;
+	   this._id = id;
+	   this._size = config.size;
+	   this._color = config.color;
+	   this._phase = config.phase;
+       this._div.innerHTML = "Moon(id=" + id + ", color="  + color + ")";
     }
 
     config(div,id,config) {
-        div.innerHTML="Moon(id=" + id + ")";
     }
 
     isNewMoon() {
@@ -37,7 +39,7 @@ export class Moon {
     }
 }
 
-function MoonInstantiate() {
+export function MoonInstantiate() {
     const divs=document.getElementsByClassName("moon");
     for (let i=0; i<divs.length; ++i) {
         const div=divs[i];
