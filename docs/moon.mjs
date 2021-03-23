@@ -19,18 +19,16 @@ export class MoonModel extends SatelliteModel {
         this._observers.forEach((observer) => observer.onMoonModelChange(this));
     }
 
-    isNewMoon() {
-        return this._phase == 0
-    }
-
-    cycle() {
-        this._phase = (this._phase + 1) % 4
-        this._observe();
-    }
-
 
     get phase() {
         return this._phase
+    }
+
+    set phase(value) {
+        if (this._phase != value) {
+            this._phase = value;
+            this._observe();
+        }
     }
 
     get color() {
@@ -41,7 +39,10 @@ export class MoonModel extends SatelliteModel {
         if (!["white", "silver"].includes(value)) {
             throw Error('invalid value')
         }
-        this._color = value
+        if (this._color != value) {
+            this._color = value;
+            this._observe();
+        }
     }
 
     get size() {
@@ -49,8 +50,24 @@ export class MoonModel extends SatelliteModel {
     }
 }
 
+export class MoonController {
+    constructor(model) {
+        this._model = model;
+    }
+    get model() {
+        return this._model;
+    }
 
-export class Moon extends Satellite {
+    cycle() {
+        this._model.phase = (this._model.phase + 1) % 4;
+    }
+
+    isNewMoon() {
+        return this._model.phase == 0
+    }
+}
+
+export class MoonView {
     createCanvas() {
         const canvas = document.createElement("canvas");
         canvas.setAttribute("id", this._id + "-canvas");
@@ -60,27 +77,20 @@ export class Moon extends Satellite {
         return canvas;
     }
 
-    constructor(div, id, config) {
-        super(config.distance, config.orbits);
+    constructor(model, controller, div, id, config) {
+        this._model = model;
+        this._controller = controller;
         this._div = div;
         this._id = id;
-        this._size = config.size;
-        this._color = config.color;
-        this._phase = config.phase;
         this._div.innerHTML = "Moon(id=" + this._id + ", color=" + this._color + ")";
         this._canvas = this.createCanvas();
         this._div.appendChild(this._canvas);
         const me = this;
+        this._model.addObserver(this);
         setInterval(() => { me.cycle(); }, 1000);
     }
 
-    isNewMoon() {
-        return this._phase == 0
-    }
-
-    cycle() {
-        this._phase = (this._phase + 1) % 4
-        console.log("cycle phase=" + this._phase);
+    onMoonModelChange() {
         this.redraw();
     }
 
@@ -110,25 +120,9 @@ export class Moon extends Satellite {
         context.fill();
     }
 
-    get phase() {
-        return this._phase
-    }
-
-    get color() {
-        return this._color
-    }
-
-    set color(value) {
-        if (!["white", "silver"].includes(value)) {
-            throw Error('invalid value')
-        }
-        this._color = value
-    }
-
-    get size() {
-        return this._size
-    }
 }
+
+class Moon
 
 export function MoonInstantiate() {
     const divs = document.getElementsByClassName("moon");

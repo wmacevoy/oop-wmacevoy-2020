@@ -11,3 +11,5 @@ export class SatelliteModel {
         return this._orbits;
     }
 }
+
+// module.exports = { 'SatelliteModel' : SatelliteModel };
