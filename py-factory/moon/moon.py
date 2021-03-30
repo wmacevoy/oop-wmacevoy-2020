@@ -14,6 +14,29 @@ class Satellite:
     def orbits(self):
         return self._orbits
 
+    def clone(self) -> 'Satellite':
+        return Satellite(self._distance, self._orbits)
+
+class SatelliteBuilder:
+    DEFAULT_DISTANCE : float = 384.4e6
+    DEFAULT_ORBITS : str = "earth"
+
+    def __init__(self, distance : float = DEFAULT_DISTANCE, 
+                        orbits : str = DEFAULT_ORBITS) :
+        self._distance = distance
+        self._orbits = orbits
+
+    def distance(self, value : float) -> 'SatelliteBuilder':
+        self._distance = value
+        return self
+
+    def orbits(self, value : str) -> 'SatelliteBuilder':
+        self._orbits = value
+        return self
+
+    def build(self) -> Satellite:
+        return Satellite(self._distance, self._orbits)
+
 # classes are "blueprints" for objects.
 
 # Moon is a derived class of Satellite
@@ -66,3 +89,6 @@ class Moon(Satellite):
     @property
     def size(self):
         return self._size
+
+    def clone(self):
+        return Moon(self._distance, self._orbits, self._size, self._color, self._phase)
