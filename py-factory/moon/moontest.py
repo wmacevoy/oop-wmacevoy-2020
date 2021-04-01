@@ -23,6 +23,33 @@ class MoonTest(unittest.TestCase):
         self.assertEqual(moon.color,color)
         self.assertEqual(moon.size,size)
 
+    def testCloneMoon(self):
+        distance : float = 17
+        orbits : str = "Mars"
+        size = 3
+        color = "black"
+        phase = 2
+        moon : Moon = Moon(distance, orbits, size, color, phase)
+
+        clonedMoon = moon.clone()
+
+        newPhase = (phase+1)%4
+
+        moon.cycle()
+
+
+        self.assertEqual(moon.distance,distance)
+        self.assertEqual(clonedMoon.distance,distance)
+        self.assertEqual(moon.orbits,orbits)
+        self.assertEqual(clonedMoon.orbits,orbits)
+        self.assertEqual(moon.phase,newPhase)
+        self.assertEqual(clonedMoon.phase,phase)
+        self.assertEqual(moon.color,color)
+        self.assertEqual(clonedMoon.color,color)
+        self.assertEqual(moon.size,size)
+        self.assertEqual(clonedMoon.size,size)
+
+
     def testCycle(self):
         distance : float = 17
         orbits : str = "Mars"

@@ -1,28 +1,30 @@
 from typing import List
 
 class Satellite:
-    def __init__(self, distance : float, orbits : str) :
+    DEFAULT_DISTANCE : float = 384.4e6
+    DEFAULT_ORBITS : str = "earth"
+
+    def __init__(self, distance : float = DEFAULT_DISTANCE, 
+                orbits : str = DEFAULT_ORBITS) :
         self._distance = distance
         self._orbits = orbits
 
 
     @property
-    def distance(self):
+    def distance(self) -> float:
         return self._distance
 
     @property
-    def orbits(self):
+    def orbits(self) -> str:
         return self._orbits
 
     def clone(self) -> 'Satellite':
         return Satellite(self._distance, self._orbits)
 
 class SatelliteBuilder:
-    DEFAULT_DISTANCE : float = 384.4e6
-    DEFAULT_ORBITS : str = "earth"
 
-    def __init__(self, distance : float = DEFAULT_DISTANCE, 
-                        orbits : str = DEFAULT_ORBITS) :
+    def __init__(self, distance : float = Satellite.DEFAULT_DISTANCE, 
+                        orbits : str = Satellite.DEFAULT_ORBITS) :
         self._distance = distance
         self._orbits = orbits
 
@@ -46,25 +48,24 @@ class SatelliteBuilder:
 #  "A crater is a Moon" --- sounds wrong
 #  "Moon has a (collection of) Crater" 
 
-# phobos is an instance of Moon (singular version of)
-  
-class Crater:
-    pass
-
 class Moon(Satellite):
-
+    DEFAULT_SIZE = 1.7371e6
+    DEFAULT_COLOR = 'silver'
+    DEFAULT_PHASE = 0
     # constructor - used to initialize a new moon (instance of Moon)
     #
     #   make an instance, then the blueprint has to have a way to
     #   refer to "itself".  In python, that is "self"
-    def __init__(self,distance : float, orbits : str,
-           size : int,color : str, phase : int = 0) -> None:
+    def __init__(self,distance : float = Satellite.DEFAULT_DISTANCE, 
+                orbits : str = Satellite.DEFAULT_ORBITS,
+                size : int = DEFAULT_SIZE,
+                color : str = DEFAULT_COLOR, 
+                phase : int = DEFAULT_PHASE) -> None:
         Satellite.__init__(self, distance, orbits)
         # properties...
         self._size : int = size
         self._color : str = color
         self._phase : int = phase
-        self._craters : List[Crater] = []
 
     def isNewMoon(self) -> bool:
         return self._phase == 0
@@ -90,5 +91,5 @@ class Moon(Satellite):
     def size(self):
         return self._size
 
-    def clone(self):
+    def clone(self) -> Satellite:
         return Moon(self._distance, self._orbits, self._size, self._color, self._phase)
